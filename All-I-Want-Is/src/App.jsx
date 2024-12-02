@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 
+// Safely access environment variables
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
+
+// console.log(import.meta.env);
+// console.log(SUPABASE_URL);
+// console.log(SUPABASE_KEY);
+
+
+// TODO: Add an env var for these secrets
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getUsers();
+    console.log(SUPABASE_KEY)
+    console.log(SUPABASE_URL)
+  }, []);
+
+
+  async function getUsers() {
+    try {
+      const { data } = await supabase.from("Users").select();
+      setUsers(data);
+      console.log(users)
+    }
+    catch (error) {
+      setError(error.message);
+      console.error("Error fetching users:", error);
+  }
 }
 
-export default App
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.user_name}>{user.user_name}</li>
+      ))}
+    </ul>
+  );
+}
+
+export default App;
