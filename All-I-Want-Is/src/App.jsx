@@ -19,9 +19,7 @@ function App() {
 
   useEffect(() => {
     getUsers();
-    console.log(SUPABASE_KEY)
-    console.log(SUPABASE_URL)
-  }, []);
+    }, []);
 
 
   async function getUsers() {
