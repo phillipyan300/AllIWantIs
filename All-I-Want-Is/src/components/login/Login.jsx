@@ -1,11 +1,14 @@
 import supabase  from "../supabaseClient";
 
+
+const REDIRECT_URL = import.meta.env.VITE_SUPABASE_REDIRECT_URL;
+
 function Login() {
   const handleGoogleSignIn = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:5174/oauth/callback", // Replace with your app's callback URL
+        redirectTo: REDIRECT_URL, 
       }
     });
 
