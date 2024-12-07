@@ -1,0 +1,49 @@
+/* General footer styles */
+.footer {
+    display: flex;
+    justify-content: space-between; /* Match banner alignment */
+    align-items: center;
+    padding: 8px 20px; /* Match padding with banner */
+    background-color: white;
+    color: black;
+    border-top: 0.5px solid black; /* Consistent border style with banner */
+    font-size: 0.9rem; /* Slightly smaller than banner */
+  }
+  
+  /* Left-aligned content */
+  .footer-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .footer-left p {
+    margin: 0;
+    font-size: 0.9rem; /* Consistent with footer font size */
+    color: black;
+  }
+  
+  /* Right-aligned content */
+  .footer-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .footer-right p {
+    margin: 0;
+    font-size: 0.9rem; /* Consistent with footer font size */
+    font-weight: 500; /* Slightly bolder for emphasis */
+    color: black;
+  }
+  
+  /* Dark theme styles */
+  .footer.dark {
+    background-color: #2e3136; /* Match dark theme with banner */
+    color: #ffffff;
+    border-top: 0.5px solid white;
+  }
+  
+  .footer.dark .footer-left p,
+  .footer.dark .footer-right p {
+    color: #ffffff;
+  }
+  

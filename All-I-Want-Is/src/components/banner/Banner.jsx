@@ -33,9 +33,6 @@ function Banner() {
 
       {/* Right aligned: About button and Log In button */}
       <div className="banner-right">
-        <button onClick={handleAboutClick} className="about-button">
-          About
-        </button>
         <button className="login-button">
           Log In
         </button>
