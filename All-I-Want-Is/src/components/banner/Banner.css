@@ -1,0 +1,89 @@
+/* General banner styles */
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px;
+    background-color: white;
+    color: black;
+    border-bottom: 0.5px solid black;
+  }
+  
+  /* Left aligned elements (logo, title) */
+  .banner-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 80px;
+    height: 80px;
+    margin-right: 12px;
+  }
+  
+  .banner-title {
+    margin: 0;
+    font-size: 24px;
+    color: black;
+  }
+  
+  /* Right aligned elements */
+  .banner-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .about-button,
+  .login-button {
+    background-color: white;
+    border: none;
+    padding: 8px 16px;
+    margin-left: 15px;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Hover effects for buttons */
+  .about-button:hover,
+  .login-button:hover {
+    background-color: rgb(168, 165, 165);
+    color: white;
+  }
+  
+  /* Dark theme styles */
+  .banner.dark {
+    background-color: #2E3136;
+    color: #ffffff;
+    border-bottom: 0.5px solid white;
+  }
+  
+  .banner.dark .banner-title {
+    color: #ffffff;
+  }
+  
+  .banner.dark .about-button,
+  .banner.dark .login-button {
+    background-color: #3a80d1;
+    color: #ffffff;
+  }
+  
+  .banner.dark .about-button:hover,
+  .banner.dark .login-button:hover {
+    background-color: #cacaca;
+  }
+  
+  .logo-button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .about-button:focus,
+  .login-button:focus,
+  .logo-button:focus {
+    outline: none;
+  }
+  

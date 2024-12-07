@@ -27,3 +27,9 @@ dist-ssr
 # Env files
 .env*.local
 .env.production
+
+# System files
+.DS_Store
+**/.DS_Store
+Thumbs.db
+desktop.ini

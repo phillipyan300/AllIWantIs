@@ -1,21 +1,26 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./components/login/Login"
-import Landing from "./components/landing/Landing"
-import Dashboard from "./components/owner/dashboard"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Banner from './components/banner/Banner';
+// import Footer from './components/footer/Footer';
+import Landing from './components/landing/Landing';
+import Login from './components/login/Login';
+import Dashboard from './components/owner/dashboard';
+import { ThemeProvider } from './components/contexts/ThemeProvider';
+import './App.css';
 
-// To do
-// Add theme, add footer and header
-// Add css to modify for both phone and computer
 function App() {
   return (
-    <Router>
-      <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/oauth/callback" element={<Dashboard />} />
-      </Routes>
-    </Router>
-
+    <ThemeProvider>
+        <Router>
+          <Banner />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/oauth/callback" element={<Dashboard />} />
+          </Routes>
+          {/* <Footer /> */}
+        </Router>
+      </div>
+    </ThemeProvider>
   );
 }
 
