@@ -1,0 +1,110 @@
+.wish-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f8f8f8;
+  }
+  
+  .wish-form {
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Create candy cane border effect */
+  .wish-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 15px solid;
+    border-image: repeating-linear-gradient(
+      45deg,
+      #D4726A,
+      #D4726A 20px,
+      #9AC5BA 20px,
+      #9AC5BA 40px
+    ) 15;
+    pointer-events: none;
+  }
+  
+  .wish-title {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 3.5rem;
+    color: #333;
+    margin: 0;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .wish-subtitle {
+    font-size: 0.9rem;
+    color: #555;
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+  }
+  
+  .wish-input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s;
+  }
+  
+  .wish-input:focus {
+    outline: none;
+    border-bottom-color: #D4726A;
+  }
+  
+  .wish-input::placeholder {
+    color: #999;
+  }
+  
+  .sleigh-footer {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .sleigh-image {
+    width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .promise-text {
+    font-size: 0.8rem;
+    color: #333;
+    letter-spacing: 1px;
+    margin: 0;
+  }
+  
+  /* Add some responsiveness */
+  @media (max-width: 480px) {
+    .wish-form {
+      padding: 20px;
+    }
+  
+    .wish-title {
+      font-size: 2.5rem;
+    }
+  }
