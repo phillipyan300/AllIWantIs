@@ -1,6 +1,6 @@
 import './OrnamentPanel.css';
 
-function OrnamentPanel({ isOpen, onClose }) {
+function OrnamentPanel({ isOpen, onClose, onSelect }) {
   // Define ornament types and corresponding image file names
   const ornaments = [
     { type: "Traditional Ball", image: "/balls/ball1.png" },
@@ -24,7 +24,14 @@ function OrnamentPanel({ isOpen, onClose }) {
         <h2>Choose an Ornament</h2>
         <div className="ornament-grid">
           {ornaments.map((ornament, index) => (
-            <div key={index} className="ornament-item">
+            <div
+              key={index}
+              className="ornament-item"
+              onClick={() => {
+                onSelect(ornament); // Pass the selected ornament to the parent
+                onClose(); // Close the panel
+              }}
+            >
               <img
                 src={ornament.image}
                 alt={ornament.type}
