@@ -1,0 +1,111 @@
+.about {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #dcfce7, #f0fdf4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    position: relative;
+  }
+  
+  .about-content {
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .tree-icon {
+    position: relative;
+    font-size: 2rem;
+  }
+  
+  .santa-hat {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    font-size: 1rem;
+    transform: rotate(30deg);
+  }
+  
+  .title {
+    color: #166534;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .subtitle {
+    color: #166534;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .stats-text {
+    color: #166534;
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+    line-height: 1.5;
+  }
+  
+  .steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .step-card {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .step-card:hover {
+    transform: translateX(5px);
+  }
+  
+  .step-number {
+    background: #14532d;
+    color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  
+  .step-title {
+    color: #14532d;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  .next-button {
+    background: linear-gradient(to right, #dc2626, #ea580c);
+    color: white;
+    border: none;
+    padding: 1rem 4rem;
+    border-radius: 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: transform 0.2s;
+  }
+  
+  .next-button:hover {
+    transform: translateY(-2px);
+  }

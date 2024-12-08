@@ -1,0 +1,27 @@
+.landing {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #dcfce7, #f0fdf4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    position: relative;
+  }
+  
+  .help-button {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: rgba(14, 63, 49, 0.1);
+    color: #14532d;
+    font-size: 1.25rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  

@@ -1,0 +1,21 @@
+.welcomeHeader {
+  background: rgb(222,252,233);
+  backdrop-filter: blur(4px);
+  padding: 2rem; /* Increased padding for a larger header */
+  border-radius: 12px; /* Slightly larger border radius */
+  margin-bottom: 3rem; /* More space below the header */
+  text-align: center;
+}
+
+.welcomeText {
+  color: #15803d;
+  font-size: 1.75rem; /* Increased font size */
+  margin-bottom: 1rem; /* Increased space below the text */
+}
+
+.title {
+  color: #14532d;
+  font-size: 3.5rem; /* Increased font size */
+  font-weight: bold;
+  margin: 0;
+}

@@ -1,0 +1,32 @@
+.treeContainer {
+  position: relative;
+  width: 24rem; /* Increased width */
+  height: 30rem; /* Increased height */
+  margin-bottom: 3rem; /* Increased bottom margin */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevents any overflow */
+}
+
+.treeImage {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  max-height: 100%; /* Ensures the image never exceeds container height */
+  object-fit: contain; /* Ensures the image fits inside the container */
+}
+
+.star {
+  position: absolute;
+  top: -15px; /* Adjusted position to match the larger container */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3.5rem; /* Increased font size for the star */
+}
+
+.deer {
+  position: absolute;
+  bottom: 1.5rem; /* Adjusted position for the larger container */
+  right: 0.5rem; /* Slightly offset from the edge */
+  font-size: 3.5rem; /* Increased font size for the deer */
+}
