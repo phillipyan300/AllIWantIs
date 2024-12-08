@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import supabase from "../supabaseClient";
+import UserTree from "./UserTree"; // Import the Tree component
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -39,12 +40,7 @@ function Dashboard() {
         alt={`${user.name}'s profile`}
         className="profile-picture"
       />
-      <img
-        src="/AllIWantTreeLogo.png"
-        alt="Christmas Tree"
-        className="dashboard-tree"
-      />
-      <button className="add-ornament-button">Add Ornaments</button>
+      <UserTree /> {/* Render the Tree component */}
     </div>
   );
 }

@@ -1,0 +1,29 @@
+.user-tree-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  
+  .user-tree-logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 1.5rem;
+  }
+  
+  .add-ornament-button {
+    background: linear-gradient(to right, #dc2626, #ea580c);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .add-ornament-button:hover {
+    transform: translateY(-2px);
+  }
+  
