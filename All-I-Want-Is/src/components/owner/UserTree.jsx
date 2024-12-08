@@ -9,7 +9,7 @@ function UserTree() {
   return (
     <div className="user-tree-container">
       <img
-        src="/AllIWantTreeLogo.png"
+        src="/realisticChristmasTree.png"
         alt="Christmas Tree"
         className="user-tree-logo"
       />
