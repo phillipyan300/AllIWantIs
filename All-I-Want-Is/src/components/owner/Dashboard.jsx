@@ -44,7 +44,7 @@ function Dashboard() {
         alt="Christmas Tree"
         className="dashboard-tree"
       />
-      <button className="add-ornament-button">Add Ornament</button>
+      <button className="add-ornament-button">Add Ornaments</button>
     </div>
   );
 }
