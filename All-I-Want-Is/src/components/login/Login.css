@@ -1,0 +1,20 @@
+
+  
+  /* Styled button */
+  .next-button {
+    background: linear-gradient(to right, #dc2626, #ea580c);
+    color: white;
+    border: none;
+    padding: 1rem 4rem;
+    border-radius: 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: transform 0.2s;
+  }
+  
+  .next-button:hover {
+    transform: translateY(-2px);
+  }
+  

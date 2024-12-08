@@ -4,7 +4,7 @@ import Footer from './components/footer/Footer';
 import Landing from './components/landing/Landing';
 import Login from './components/login/Login';
 import About from './components/about/About';
-import Dashboard from './components/owner/dashboard';
+import Dashboard from './components/owner/Dashboard';
 import { ThemeProvider } from './components/contexts/ThemeProvider';
 import './App.css';
 

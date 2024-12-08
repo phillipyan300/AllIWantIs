@@ -1,9 +1,14 @@
 import supabase from "../supabaseClient";
-import "./Login.css";
+import { useNavigate } from "react-router-dom";
+import "../login/Login.css";
 
+
+// COPY OF LOGIN BUTTON, JUST DIFFERNT
 const REDIRECT_URL = import.meta.env.VITE_SUPABASE_REDIRECT_URL;
 
-function Login() {
+function ExistingTreeButton() {
+  const navigate = useNavigate();
+
   const handleGoogleSignIn = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
@@ -16,16 +21,15 @@ function Login() {
       console.error("Error signing in with Google:", error.message);
     } else {
       console.log("Sign-in successful!");
+      navigate('/existing-tree'); // Redirect to '/existing-tree' after successful login
     }
   };
 
   return (
-    <div className="login-container">
-      <button className="next-button" onClick={handleGoogleSignIn}>
-        Sign in with Google
-      </button>
-    </div>
+    <button className="existing-tree" onClick={handleGoogleSignIn}>
+      I Already Have a Tree
+    </button>
   );
 }
 
-export default Login;
+export default ExistingTreeButton;

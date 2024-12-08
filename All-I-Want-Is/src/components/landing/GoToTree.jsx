@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './GoToTree.css';
+import "../login/Login.css";
+import ExistingTreeButton from './ExistingTreeButton';
 
 function GoToTree() {
   const navigate = useNavigate();
@@ -12,12 +14,7 @@ function GoToTree() {
       >
         Make My Tree
       </button>
-      <button
-        className="existing-tree"
-        onClick={() => navigate('/existing-tree')}
-      >
-        I Already Have a Tree
-      </button>
+      <ExistingTreeButton />
     </div>
   );
 }

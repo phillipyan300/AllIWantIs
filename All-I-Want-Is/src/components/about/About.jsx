@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import StepCard from './StepCard';
 import './About.css';
-
+import Login from "../login/Login";
 
 
 function About() {
@@ -15,7 +15,7 @@ function About() {
             <span className="santa-hat">🎅</span>
           </div>
           
-          <h1 className="title">DECO MY TREE</h1>
+          <h1 className="title">ALL I WANT IS ...</h1>
           <h2 className="subtitle">HOW TO USE</h2>
           
   
@@ -26,13 +26,8 @@ function About() {
             <StepCard number="4" title="Visit Friends' Trees and Start Gifting" />
 
           </div>
-  
-          <button 
-            className="next-button"
-            onClick={() => navigate('/')}
-          >
-            NEXT
-          </button>
+          <Login />
+          
         </div>
       </div>
     );
