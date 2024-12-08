@@ -8,6 +8,9 @@ function UserTree() {
   const [placementSpots, setPlacementSpots] = useState([]);
   const [hoveredOrnament, setHoveredOrnament] = useState(null);
   const [selectedOrnament, setSelectedOrnament] = useState(null);
+
+  const [editMode, setEditMode] = useState(null); // Edit mode for a specific ornament (bool, ornamentId) tuple
+
   const [wishes, setWishes] = useState([]);
   const treeRef = useRef(null);
 
@@ -93,52 +96,53 @@ function UserTree() {
   };
 
   const handlePlaceOrnament = (combinedData) => {
-    console.log("Combined Data:", combinedData);
-    const nextSpot = placementSpots[placedOrnaments.length];
-    if (!nextSpot) {
-      alert("No more spots available!");
-      return;
+    // If we're editing, update existing ornament
+    if (editMode?.isEditing) {
+      setPlacedOrnaments(prevOrnaments =>
+        prevOrnaments.map(ornament =>
+          ornament === editMode.ornamentToEdit
+            ? {
+                ...ornament,
+                wish: combinedData.wish
+              }
+            : ornament
+        )
+      );
+      setEditMode(null);
+    } else {
+      // Regular new ornament flow
+      const nextSpot = placementSpots[placedOrnaments.length];
+      if (!nextSpot) {
+        alert("No more spots available!");
+        return;
+      }
+
+      setPlacedOrnaments([
+        ...placedOrnaments,
+        {
+          ...combinedData.ornament,
+          position: nextSpot,
+          wish: combinedData.wish
+        },
+      ]);
+
+      setWishes([
+        ...wishes,
+        {
+          ...combinedData.wish,
+          ornamentId: placedOrnaments.length,
+          ornamentType: combinedData.ornament.type
+        }
+      ]);
     }
 
-    // Update the state with the new ornament and wish
-    setPlacedOrnaments([
-      ...placedOrnaments,
-      { 
-        ...combinedData.ornament, 
-        position: nextSpot,
-        wish: combinedData.wish 
-      },
-    ]);
-
-    // Add to wishes array
-    setWishes([
-      ...wishes,
-      {
-        ...combinedData.wish,
-        ornamentId: placedOrnaments.length, // assuming this is set upon initialization, might need to change to allow edits
-        ornamentType: combinedData.ornament.type
-      }
-    ]);
-    // Lets log the ornament and the item
-    console.log("Placed ornament:", combinedData.ornament);
-    console.log("Placed wish:", combinedData.wish);
-
-    // close the panel
+    console.log("Placed ornament:", combinedData);
     setIsPanelOpen(false);
   };
 
 
 
   // ORNAMENT HOVER AND CLICKING TREE VIEW
-
-  const handleOrnamentHover = (ornament) => {
-    setHoveredOrnament(ornament);
-  };
-
-  const handleOrnamentClick = (ornament) => {
-    setSelectedOrnament(selectedOrnament?.id === ornament.id ? null : ornament);
-  };
-
   // Handles removing an ornament, shifts all ornaments down, so always no gaps
   const handleRemoveOrnament = (ornamentToRemove) => {
     // Find the index of the ornament to remove
@@ -163,10 +167,15 @@ function UserTree() {
     setSelectedOrnament(null);
   };
 
-  const handleEditOrnament = (ornamentId) => {
-    // To be implemented with edit functionality
-    console.log("Edit ornament:", ornamentId);
+
+  const handleEditOrnament = (ornamentToEdit) => {
+    setEditMode({
+      isEditing: true,
+      ornamentToEdit: ornamentToEdit
+    });
+    setIsPanelOpen(true);
   };
+
 
 
 
@@ -208,7 +217,6 @@ function UserTree() {
               }}
             >
               <h3>{ornament.wish.title}</h3>
-              <p className="preview-price">${ornament.wish.price}</p>
             </div>
           )}
 
@@ -264,14 +272,18 @@ function UserTree() {
         className="add-ornament-button"
         onClick={() => setIsPanelOpen(true)}
       >
-        Add Ornaments
+        Add A Gift You Want!
       </button>
 
       {/* Ornament Selection Panel */}
       <OrnamentPanel
         isOpen={isPanelOpen}
-        onClose={() => setIsPanelOpen(false)}
-        onSelect={(ornament) => handlePlaceOrnament(ornament)}
+        onClose={() => {
+          setIsPanelOpen(false);
+          setEditMode(null);  // Reset edit mode on close
+        }}
+        onSelect={handlePlaceOrnament}
+        editMode={editMode}
       />
     </div>
   );

@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import './WishForm.css';
 
-function WishForm({ onSubmit, onClose }) {
-  const [wishData, setWishData] = useState({
-    title: '',
-    link: '',
-    description: ''
-  });
+function WishForm({ onSubmit, onClose, initialData }) {
+  const [wishData, setWishData] = useState(
+    initialData || {
+      title: '',
+      link: '',
+      description: ''
+    }
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,9 +17,12 @@ function WishForm({ onSubmit, onClose }) {
   };
 
   return (
+    <div className="wish-form-container">
     <div className="wish-form">
       <h1 className="wish-title">Dear Santa!</h1>
-      <p className="wish-subtitle">ALL I WANT FOR CHRISTMAS IS...</p>
+      <p className="wish-subtitle">
+        {initialData ? "EDIT MY CHRISTMAS WISH..." : "ALL I WANT IS..."}
+      </p>
       
       <form onSubmit={handleSubmit} className="input-group">
         <input 
@@ -26,7 +31,6 @@ function WishForm({ onSubmit, onClose }) {
           className="wish-input"
           value={wishData.title}
           onChange={(e) => setWishData({...wishData, title: e.target.value})}
-          // required
         />
         <input 
           type="url"
@@ -34,7 +38,6 @@ function WishForm({ onSubmit, onClose }) {
           className="wish-input"
           value={wishData.link}
           onChange={(e) => setWishData({...wishData, link: e.target.value})}
-          // required
         />
         <input 
           type="text"
@@ -42,9 +45,10 @@ function WishForm({ onSubmit, onClose }) {
           className="wish-input"
           value={wishData.description}
           onChange={(e) => setWishData({...wishData, description: e.target.value})}
-          // required
         />
-        <button type="submit" className="submit-button">Add to Wishlist</button>
+        <button type="submit" className="submit-button">
+          {initialData ? "Update Wish" : "Add to Wishlist"}
+        </button>
       </form>
 
       <div className="sleigh-footer">
@@ -55,6 +59,7 @@ function WishForm({ onSubmit, onClose }) {
         />
         <p className="promise-text">I PROMISE TO BE VERY, VERY GOOD</p>
       </div>
+    </div>
     </div>
   );
 }

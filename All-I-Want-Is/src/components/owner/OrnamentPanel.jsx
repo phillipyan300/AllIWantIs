@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import './OrnamentPanel.css';
 import WishForm from './wishForm/WishForm';'./wishForm/WishForm.jsx';
 
 
 
-function OrnamentPanel({ isOpen, onClose, onSelect }) {
+function OrnamentPanel({ isOpen, onClose, onSelect, editMode }) {
     const [showWishForm, setShowWishForm] = useState(false);
     const [selectedOrnament, setSelectedOrnament] = useState(null);
   // Define ornament types and corresponding image file names
@@ -22,6 +22,18 @@ function OrnamentPanel({ isOpen, onClose, onSelect }) {
     { type: "Holly", image: "/balls/ball11.png" },
     { type: "Ribbon", image: "/balls/ball12.png" },
   ];
+
+
+  // Handle edit mode upon load
+  useEffect(() => {
+    if (editMode?.isEditing) {
+      setSelectedOrnament(editMode.ornamentToEdit);
+      setShowWishForm(true);
+    } else {
+      setShowWishForm(false);
+      setSelectedOrnament(null);
+    }
+  }, [editMode]);
 
   // For the initial ornament selection, will go to wishlist, so currently storing until wishlist returns
   const handleOrnamentClick = (ornament) => {
@@ -76,6 +88,7 @@ function OrnamentPanel({ isOpen, onClose, onSelect }) {
           <WishForm 
             onSubmit={handleWishSubmit}
             onClose={() => setShowWishForm(false)}
+            initialData={editMode?.isEditing ? editMode.ornamentToEdit.wish : null}
           />
         )}
       </div>

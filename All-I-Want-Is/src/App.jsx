@@ -8,6 +8,8 @@ import Dashboard from './components/owner/Dashboard';
 import { ThemeProvider } from './components/contexts/ThemeProvider';
 import './App.css';
 
+// Testing purposes only
+import InsertTableTest from './tests/userTableInsertionTest';
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
             <Route path="/oauth/callback" element={<Dashboard />} />
+            <Route path="/test-insert" element={<InsertTableTest />} />
           </Routes>
           <Footer />
         </Router>

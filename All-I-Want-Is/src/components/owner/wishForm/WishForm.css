@@ -1,21 +1,22 @@
 .wish-form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    background-color: #f8f8f8;
-  }
-  
-  .wish-form {
-    width: 100%;
-    max-width: 600px;
-    padding: 40px;
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    position: relative;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.wish-form {
+  width: 100%;
+  max-width: 600px;
+  padding: 40px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: auto; /* Centers the form */
+}
   
   /* Create candy cane border effect */
   .wish-form::before {
