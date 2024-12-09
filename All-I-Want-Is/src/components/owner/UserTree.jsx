@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import OrnamentPanel from "./OrnamentPanel";
 import supabase from "../supabaseClient";
 import "./UserTree.css";
+import ShareButton from './ShareButton';
+
 
 function UserTree({ userEmail }) {
   const [isPanelOpen, setIsPanelOpen] = useState(false);

@@ -1,0 +1,67 @@
+/* components/ShareButton/ShareButton.css */
+.share-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .share-button {
+    background: linear-gradient(to right, #dc2626, #ea580c);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .share-button:hover {
+    transform: scale(1.05);
+  }
+  
+  .share-options {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    width: 90%;
+    max-width: 500px;
+  }
+  
+  .share-text {
+    color: #374151;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  
+  .share-url-container {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .share-url-input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .copy-button {
+    background: #4b5563;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .copy-button:hover {
+    background: #374151;
+  }

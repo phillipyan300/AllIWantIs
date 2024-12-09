@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import supabase from "../supabaseClient";
 import UserTree from "./UserTree"; // Import the Tree component
 import "./Dashboard.css";
+import ShareButton from './ShareButton';
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -41,6 +42,7 @@ function Dashboard() {
         className="profile-picture"
       />
       <UserTree userEmail={user.email} />
+      <ShareButton userEmail={user.email}/>
       </div>
   );
 }
