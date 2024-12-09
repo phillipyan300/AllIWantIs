@@ -9,18 +9,18 @@ function OrnamentPanel({ isOpen, onClose, onSelect, editMode }) {
     const [selectedOrnament, setSelectedOrnament] = useState(null);
   // Define ornament types and corresponding image file names
   const ornaments = [
-    { type: "Traditional Ball", image: "/balls/ball1.png" },
-    { type: "Star", image: "/balls/ball2.png" },
-    { type: "Angel", image: "/balls/ball3.png" },
-    { type: "Candy Cane", image: "/balls/ball4.png" },
-    { type: "Snowflake", image: "/balls/ball5.png" },
-    { type: "Bell", image: "/balls/ball6.png" },
-    { type: "Icicle", image: "/balls/ball7.png" },
-    { type: "Gingerbread", image: "/balls/ball8.png" },
-    { type: "Pine Cone", image: "/balls/ball9.png" },
-    { type: "Gift Box", image: "/balls/ball10.png" },
-    { type: "Holly", image: "/balls/ball11.png" },
-    { type: "Ribbon", image: "/balls/ball12.png" },
+    { type: "Ball 1", image: "/balls/ball1.png" },
+    { type: "Ball 2", image: "/balls/ball2.png" },
+    { type: "Ball 3", image: "/balls/ball3.png" },
+    { type: "Ball 4", image: "/balls/ball4.png" },
+    { type: "Ball 5", image: "/balls/ball5.png" },
+    { type: "Ball 6", image: "/balls/ball6.png" },
+    { type: "Ball 7", image: "/balls/ball7.png" },
+    { type: "Ball 8", image: "/balls/ball8.png" },
+    { type: "Ball 9", image: "/balls/ball9.png" },
+    { type: "Ball 10", image: "/balls/ball10.png" },
+    { type: "Ball 11", image: "/balls/ball11.png" },
+    { type: "Ball 12", image: "/balls/ball12.png" },
   ];
 
 

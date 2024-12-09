@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import OrnamentPanel from "./OrnamentPanel";
+import supabase from "../supabaseClient";
 import "./UserTree.css";
 
-function UserTree() {
+function UserTree({ userEmail }) {  // Add userEmail prop
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [placedOrnaments, setPlacedOrnaments] = useState([]);
   const [placementSpots, setPlacementSpots] = useState([]);
@@ -13,6 +14,38 @@ function UserTree() {
 
   const [wishes, setWishes] = useState([]);
   const treeRef = useRef(null);
+
+  // LOAD EXISTING USER IF EXISTS (note only called after coords of ornaments are calculated)
+  const fetchUserOrnaments = async () => {
+    try {
+      console.log("Fetching ornaments for user:", userEmail);
+      const { data, error } = await supabase
+        .from("Users")
+        .select('gifts')
+        .eq('email', userEmail)
+        .single();
+
+      if (error) throw error;
+
+      if (data?.gifts) {
+        console.log("Backend database has content")
+        const parsedOrnaments = data.gifts;
+        console.log("Length of placement spots", placementSpots.length)
+        if (placementSpots.length > 0) {
+          console.log("Exists spots to place")
+          const ornamentsWithPositions = parsedOrnaments.map((ornament, index) => ({
+            ...ornament,
+            position: placementSpots[index]
+          }));
+          setPlacedOrnaments(ornamentsWithPositions);
+        }
+      }
+      console.log("Ornaments fetched:", data);
+      // console.log("Placed Ornaments:", placedOrnaments)
+    } catch (error) {
+      console.error("Error fetching ornaments:", error);
+    }
+  };
 
 
   // Figure out coords for the ornaments
@@ -72,6 +105,11 @@ function UserTree() {
     
         console.log("Calculated spots:", spots);
       };
+
+      // After spots are calculated, fetch and place ornaments
+      if (userEmail) {
+        fetchUserOrnaments();
+      }
     
   };
 
@@ -136,7 +174,9 @@ function UserTree() {
       ]);
     }
 
-    console.log("Placed ornament:", combinedData);
+    console.log("Placed combinaed data:", combinedData);
+    // console.log("placed ornaments:", placedOrnaments);
+    // console.log("ornament locations:", placementSpots);
     setIsPanelOpen(false);
   };
 

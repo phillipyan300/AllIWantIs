@@ -40,8 +40,8 @@ function Dashboard() {
         alt={`${user.name}'s profile`}
         className="profile-picture"
       />
-      <UserTree /> {/* Render the Tree component */}
-    </div>
+      <UserTree userEmail={user.email} />
+      </div>
   );
 }
 
