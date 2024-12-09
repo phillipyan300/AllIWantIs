@@ -6,8 +6,11 @@ function ShareButton({ userEmail }) {
   const [showShareOptions, setShowShareOptions] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   
+
+
   const handleShare = () => {
-    const url = `${window.location.origin}/tree/${userEmail}`;
+    const encodedEmail = encodeURIComponent(userEmail);
+    const url = `${window.location.origin}/tree/${encodedEmail}`;
     setShareUrl(url);
     setShowShareOptions(true);
   };

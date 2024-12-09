@@ -2,10 +2,9 @@ import { useEffect, useState, useRef } from "react";
 import OrnamentPanel from "./OrnamentPanel";
 import supabase from "../supabaseClient";
 import "./UserTree.css";
-import ShareButton from './ShareButton';
 
 
-function UserTree({ userEmail }) {
+function UserTree({ userEmail, userName, userAvatarLink }) {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [placedOrnaments, setPlacedOrnaments] = useState([]);
   const [placementSpots, setPlacementSpots] = useState([]);
@@ -29,7 +28,7 @@ function UserTree({ userEmail }) {
       if (row === 0 || row === rows - 1) continue;
 
       const rowWidth = maxWidth * ((rows - row) / rows);
-      const rowY = rect.bottom - maxHeight * (row / rows) + ((maxHeight/rows)*0.4);
+      const rowY = rect.bottom - maxHeight * (row / rows) + ((maxHeight/rows)*0.2);// THIS IS WHERE YOU TWEAK HOW HIGH ORNAMENTS ARE
       const ornamentsInRow = Math.ceil((rowWidth / maxWidth) * 3);
 
       for (let i = 0; i < ornamentsInRow; i++) {
@@ -124,6 +123,8 @@ function UserTree({ userEmail }) {
       }));
   
       const toInsert = {
+        name: userName,
+        avatar_url: userAvatarLink,
         email: userEmail,
         gifts: formattedOrnaments
       };

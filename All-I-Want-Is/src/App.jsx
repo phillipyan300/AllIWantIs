@@ -5,6 +5,7 @@ import Landing from './components/landing/Landing';
 import Login from './components/login/Login';
 import About from './components/about/About';
 import Dashboard from './components/owner/Dashboard';
+import DashboardViewer from './components/viewer/DashboardViewer';
 import { ThemeProvider } from './components/contexts/ThemeProvider';
 import './App.css';
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/oauth/callback" element={<Dashboard />} />
             <Route path="/test-insert" element={<InsertTableTest />} />
+            <Route path="/tree/:email" element={<DashboardViewer />} />
           </Routes>
           <Footer />
         </Router>

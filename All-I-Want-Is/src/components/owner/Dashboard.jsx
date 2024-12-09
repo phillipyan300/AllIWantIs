@@ -41,7 +41,7 @@ function Dashboard() {
         alt={`${user.name}'s profile`}
         className="profile-picture"
       />
-      <UserTree userEmail={user.email} />
+      <UserTree userEmail={user.email} userName={user.name} userAvatarLink={user.avatar_url} />
       <ShareButton userEmail={user.email}/>
       </div>
   );

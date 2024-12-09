@@ -1,0 +1,137 @@
+.tree-viewer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.tree-viewer-image {
+  width: 500px;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
+/* Add Ornament Button */
+.add-ornament-button {
+  background: linear-gradient(to right, #dc2626, #ea580c);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.add-ornament-button:hover {
+  transform: translateY(-2px);
+}
+
+/* Ornaments */
+.viewer-ornament {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: transform 0.2s;
+  z-index: 1;
+}
+
+.viewer-ornament:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Ornament Preview */
+.viewer-ornament-preview {
+  background: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.viewer-ornament-preview h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.preview-price {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Ornament Details */
+.viewer-ornament-details {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 220px;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.viewer-details-content {
+  margin-bottom: 8px;
+}
+
+.viewer-details-content h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.viewer-details-content p {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.viewer-details-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.details-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-button,
+.remove-button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.edit-button {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.remove-button {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.edit-button:hover {
+  background-color: #d1d5db;
+}
+
+.remove-button:hover {
+  background-color: #fecaca;
+}
