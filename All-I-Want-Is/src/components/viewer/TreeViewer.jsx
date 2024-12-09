@@ -23,7 +23,7 @@ function TreeViewer({ userEmail }) {
       if (row === 0 || row === rows - 1) continue;
 
       const rowWidth = maxWidth * ((rows - row) / rows);
-      const rowY = rect.bottom - maxHeight * (row / rows) + ((maxHeight/rows)*0.2); // THIS IS WHERE YOU TWEAK HOW HIGH ORNAMENTS ARE
+      const rowY = rect.bottom - maxHeight * (row / rows) + ((maxHeight/rows)*0); // THIS IS WHERE YOU TWEAK HOW HIGH ORNAMENTS ARE
       const ornamentsInRow = Math.ceil((rowWidth / maxWidth) * 3);
 
       for (let i = 0; i < ornamentsInRow; i++) {

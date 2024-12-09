@@ -1,9 +1,9 @@
-// DashboardViewer.jsx
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import supabase from '../supabaseClient';
 import TreeViewer from './TreeViewer';
 import './DashboardViewer.css';
+import Snowfall from 'react-snowfall';
 
 function DashboardViewer() {
   const { email } = useParams();
@@ -11,6 +11,7 @@ function DashboardViewer() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isSnowing, setIsSnowing] = useState(false); // State for snow toggle
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -26,11 +27,11 @@ function DashboardViewer() {
         if (data) {
           setUserData(data);
         } else {
-          setError("User not found");
+          setError('User not found');
         }
       } catch (err) {
-        console.error("Error:", err);
-        setError("Error loading tree");
+        console.error('Error:', err);
+        setError('Error loading tree');
       } finally {
         setLoading(false);
       }
@@ -60,7 +61,10 @@ function DashboardViewer() {
   if (!userData) return <div>No wish list found</div>;
 
   return (
-    <div className="dashboard-viewer">
+    <div className={`dashboard-viewer ${isSnowing ? 'snowing' : ''}`}>
+      {/* Show snowfall only when isSnowing is true */}
+      {isSnowing && <Snowfall snowflakeCount={300} />}
+
       <h1 className="dashboard-viewer-name">{userData.name}'s Tree</h1>
       {userData.avatar_url && (
         <img
@@ -69,11 +73,16 @@ function DashboardViewer() {
           className="profile-picture"
         />
       )}
-      <TreeViewer 
-        userEmail={userData.email} 
-        userName={userData.name} 
+      <TreeViewer
+        userEmail={userData.email}
+        userName={userData.name}
         userAvatarLink={userData.avatar_url}
       />
+
+      {/* "Let it Snow!" Button */}
+      <button className="snow-toggle-button" onClick={() => setIsSnowing(!isSnowing)}>
+        {isSnowing ? 'Stop the Snow!' : 'Let it Snow!'}
+      </button>
     </div>
   );
 }

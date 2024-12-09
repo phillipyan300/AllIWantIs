@@ -6,6 +6,7 @@ import Login from './components/login/Login';
 import About from './components/about/About';
 import Dashboard from './components/owner/Dashboard';
 import DashboardViewer from './components/viewer/DashboardViewer';
+import SnowTest from './tests/SnowTest';
 import { ThemeProvider } from './components/contexts/ThemeProvider';
 import './App.css';
 
@@ -22,8 +23,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
             <Route path="/oauth/callback" element={<Dashboard />} />
-            <Route path="/test-insert" element={<InsertTableTest />} />
             <Route path="/tree/:email" element={<DashboardViewer />} />
+
+            <Route path="/test-insert" element={<InsertTableTest />} />
+            <Route path="/test-snow" element={<SnowTest />} />
           </Routes>
           <Footer />
         </Router>

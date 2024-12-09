@@ -1,13 +1,42 @@
+/* Default dashboard background */
 .dashboard {
-    min-height: 100vh;
-    background: linear-gradient(to bottom, #dcfce7, #f0fdf4); /* Match landing page gradient */
-    display: flex;
-    flex-direction: column; /* Stacked layout */
-    align-items: center;
-    padding: 2rem 1rem;
-    position: relative;
-  }
-  
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #dcfce7, #f0fdf4); /* Light green gradient */
+  display: flex;
+  flex-direction: column; /* Stacked layout */
+  align-items: center;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow: visible;
+}
+
+/* Dashboard background when snowing */
+.dashboard.snowing {
+  background: rgb(64, 106, 189); /* Solid gray background */
+}
+
+/* Snow Toggle Button */
+.snow-toggle-button {
+  margin-top: 2rem;
+  background: linear-gradient(to right, #3b82f6, #60a5fa); /* Blue gradient */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.snow-toggle-button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(to right, #2563eb, #3b82f6); /* Slightly darker blue */
+}
+
+
+
+
   .dashboard-name {
     font-size: 2rem;
     color: #14532d;

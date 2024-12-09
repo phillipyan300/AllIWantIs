@@ -1,11 +1,17 @@
+/* Default dashboard-viewer background */
 .dashboard-viewer {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #dcfce7, #f0fdf4);
+  background: linear-gradient(to bottom, #dcfce7, #f0fdf4); /* Light green gradient */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem 1rem;
   position: relative;
+}
+
+/* Dashboard-viewer background when snowing */
+.dashboard-viewer.snowing {
+  background: rgb(64, 106, 189); /* Solid gray background */
 }
 
 .dashboard-viewer-name {
@@ -42,8 +48,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .dashboard-viewer-error {
@@ -70,4 +80,23 @@
 
 .dashboard-viewer-error button:hover {
   transform: translateY(-2px);
+}
+
+/* Snow Toggle Button */
+.snow-toggle-button {
+  margin-top: 2rem;
+  background: linear-gradient(to right, #3b82f6, #60a5fa); /* Blue gradient */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.snow-toggle-button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(to right, #2563eb, #3b82f6); /* Slightly darker blue */
 }
