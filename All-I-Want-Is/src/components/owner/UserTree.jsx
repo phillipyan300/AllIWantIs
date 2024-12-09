@@ -3,166 +3,166 @@ import OrnamentPanel from "./OrnamentPanel";
 import supabase from "../supabaseClient";
 import "./UserTree.css";
 
-function UserTree({ userEmail }) {  // Add userEmail prop
+function UserTree({ userEmail }) {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [placedOrnaments, setPlacedOrnaments] = useState([]);
   const [placementSpots, setPlacementSpots] = useState([]);
   const [hoveredOrnament, setHoveredOrnament] = useState(null);
   const [selectedOrnament, setSelectedOrnament] = useState(null);
-
-  const [editMode, setEditMode] = useState(null); // Edit mode for a specific ornament (bool, ornamentId) tuple
-
+  const [editMode, setEditMode] = useState(null);
   const [wishes, setWishes] = useState([]);
   const treeRef = useRef(null);
 
-  // LOAD EXISTING USER IF EXISTS (note only called after coords of ornaments are calculated)
-  const fetchUserOrnaments = async () => {
+  // Function to calculate spots and return them
+  const calculateSpots = () => {
+    if (!treeRef.current) return [];
+
+    const rect = treeRef.current.getBoundingClientRect();
+    const spots = [];
+    const rows = 8;
+    const maxWidth = rect.width;
+    const maxHeight = rect.height;
+
+    for (let row = 0; row < rows; row++) {
+      if (row === 0 || row === rows - 1) continue;
+
+      const rowWidth = maxWidth * ((rows - row) / rows);
+      const rowY = rect.bottom - maxHeight * (row / rows) + ((maxHeight/rows)*0.4);
+      const ornamentsInRow = Math.ceil((rowWidth / maxWidth) * 3);
+
+      for (let i = 0; i < ornamentsInRow; i++) {
+        const xStart = rect.left + (maxWidth - rowWidth) / 2;
+        const xStep = rowWidth / (ornamentsInRow + 1);
+        const x = xStart + xStep * (i + 1);
+        spots.push({ x, y: rowY });
+      }
+    }
+    
+    return spots;
+  };
+
+  // Function to update ornament positions with new spots
+  const updateOrnamentPositions = (currentSpots, ornaments) => {
+    if (!ornaments) return;
+    
+    return ornaments.map((ornament, index) => ({
+      ...ornament,
+      position: currentSpots[index]
+    }));
+  };
+
+  const fetchUserOrnaments = async (spots) => {
     try {
-      console.log("Fetching ornaments for user:", userEmail);
       const { data, error } = await supabase
         .from("Users")
         .select('gifts')
         .eq('email', userEmail)
         .single();
-
+  
       if (error) throw error;
-
-      if (data?.gifts) {
-        console.log("Backend database has content")
-        const parsedOrnaments = data.gifts;
-        console.log("Length of placement spots", placementSpots.length)
-        if (placementSpots.length > 0) {
-          console.log("Exists spots to place")
-          const ornamentsWithPositions = parsedOrnaments.map((ornament, index) => ({
-            ...ornament,
-            position: placementSpots[index]
-          }));
-          setPlacedOrnaments(ornamentsWithPositions);
-        }
+  
+      if (data?.gifts && spots.length > 0) {
+        // Restructure each ornament to match the flat format
+        const ornamentsWithPositions = data.gifts.map((gift, index) => ({
+          type: gift.ornament.type,
+          image: gift.ornament.image,
+          wish: {
+            title: gift.wish.title,
+            link: gift.wish.link,
+            description: gift.wish.description
+          },
+          position: spots[index]
+        }));
+        setPlacedOrnaments(ornamentsWithPositions);
+        console.log(ornamentsWithPositions)
       }
-      console.log("Ornaments fetched:", data);
-      // console.log("Placed Ornaments:", placedOrnaments)
     } catch (error) {
       console.error("Error fetching ornaments:", error);
     }
   };
 
-
-  // Figure out coords for the ornaments
-  const calculateSpots = () => {
-      if (treeRef.current) {
-        const rect = treeRef.current.getBoundingClientRect();
-        // console.log(rect)
-        const spots = [];
-    
-        // Number of rows and maximum ornaments per row
-        const rows = 8; // More rows = smoother taper
-        const maxWidth = rect.width; // Base width of the tree
-        const maxHeight = rect.height; // Total height of the tree
-    
-        for (let row = 0; row < rows; row++) {
-          // skip the first row
-          if (row === 0) {
-            continue;
-          }
-
-          // skip the last row
-          if (row === rows - 1) {
-            continue;
-          }
-
-          // Calculate the width of this row (tapering effect)
-          const rowWidth = maxWidth * ((rows - row) / rows); // Decreases as row increases
-    
-          // Calculate the vertical position (y) for this row
-          const rowY = rect.bottom - maxHeight * (row / rows) + ((maxHeight/rows)*0.4); // Add a little bit more so the phone screen is ok
-    
-          // Number of ornaments in this row
-          const ornamentsInRow = Math.ceil((rowWidth / maxWidth) * 3); // Scale by width
-    
-          for (let i = 0; i < ornamentsInRow; i++) {
-            // Calculate x position for each ornament in the row
-            const xStart = rect.left + (maxWidth - rowWidth) / 2;// Center the row
-            const xStep = rowWidth / (ornamentsInRow + 1); // Divide space between ornaments
-            const x = xStart + xStep * (i + 1);
-    
-            spots.push({
-              x: x,
-              y: rowY,
-            });
-          }
-        }
-    
-        setPlacementSpots(spots);
-    
-        // Update ornaments to align with spots after recalculation
-        setPlacedOrnaments((prevOrnaments) =>
-          prevOrnaments.map((ornament, index) => ({
-            ...ornament,
-            position: spots[index], // Reassign based on new spots
-          }))
-        );
-    
-        console.log("Calculated spots:", spots);
-      };
-
-      // After spots are calculated, fetch and place ornaments
-      if (userEmail) {
-        fetchUserOrnaments();
-      }
-    
-  };
-
-  // Handle screen resizing
+  // Handle initial load and window resize
   useEffect(() => {
     const handleResize = () => {
-      calculateSpots();
+      const newSpots = calculateSpots();
+      setPlacementSpots(newSpots);
+      
+      // Update existing ornaments with new positions
+      setPlacedOrnaments(prevOrnaments => 
+        updateOrnamentPositions(newSpots, prevOrnaments)
+      );
     };
 
-    // Attach resize event listener
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup event listener on unmount
+    window.addEventListener('resize', handleResize);
+    
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  // Trigger calculation when the image is fully loaded
+  // Handle image load
   const handleImageLoad = () => {
-    calculateSpots();
+    const initialSpots = calculateSpots();
+    setPlacementSpots(initialSpots);
+    
+    if (userEmail && initialSpots.length > 0) {
+      fetchUserOrnaments(initialSpots);
+    }
   };
 
-  const handlePlaceOrnament = (combinedData) => {
-    // If we're editing, update existing ornament
+  // Save ornaments to database
+  const saveOrnamentsToDatabase = async (ornaments) => {
+    try {
+      const formattedOrnaments = ornaments.map(({ position, type, image, wish }) => ({
+        ornament: {
+          type: type,
+          image: image
+        },
+        wish: wish
+      }));
+  
+      const toInsert = {
+        email: userEmail,
+        gifts: formattedOrnaments
+      };
+  
+      const { error } = await supabase
+        .from("Users")
+        .upsert(toInsert);
+  
+      if (error) throw error;
+    } catch (error) {
+      console.error("Error saving ornaments:", error);
+    }
+  };
+
+  // Handle placing new ornament
+  const handlePlaceOrnament = async (combinedData) => {
     if (editMode?.isEditing) {
-      setPlacedOrnaments(prevOrnaments =>
-        prevOrnaments.map(ornament =>
-          ornament === editMode.ornamentToEdit
-            ? {
-                ...ornament,
-                wish: combinedData.wish
-              }
-            : ornament
-        )
+      const updatedOrnaments = placedOrnaments.map(ornament =>
+        ornament === editMode.ornamentToEdit
+          ? { ...ornament, wish: combinedData.wish }
+          : ornament
       );
+      setPlacedOrnaments(updatedOrnaments);
+      await saveOrnamentsToDatabase(updatedOrnaments);
       setEditMode(null);
     } else {
-      // Regular new ornament flow
       const nextSpot = placementSpots[placedOrnaments.length];
       if (!nextSpot) {
         alert("No more spots available!");
         return;
       }
 
-      setPlacedOrnaments([
-        ...placedOrnaments,
-        {
-          ...combinedData.ornament,
-          position: nextSpot,
-          wish: combinedData.wish
-        },
-      ]);
+      const newOrnament = {
+        ...combinedData.ornament,
+        position: nextSpot,
+        wish: combinedData.wish
+      };
+
+      const updatedOrnaments = [...placedOrnaments, newOrnament];
+      setPlacedOrnaments(updatedOrnaments);
+      await saveOrnamentsToDatabase(updatedOrnaments);
 
       setWishes([
         ...wishes,
@@ -173,40 +173,24 @@ function UserTree({ userEmail }) {  // Add userEmail prop
         }
       ]);
     }
-
-    console.log("Placed combinaed data:", combinedData);
-    // console.log("placed ornaments:", placedOrnaments);
-    // console.log("ornament locations:", placementSpots);
+    console.log("Ornaments now:", placedOrnaments);
     setIsPanelOpen(false);
   };
 
-
-
-  // ORNAMENT HOVER AND CLICKING TREE VIEW
-  // Handles removing an ornament, shifts all ornaments down, so always no gaps
-  const handleRemoveOrnament = (ornamentToRemove) => {
-    // Find the index of the ornament to remove
+  // Handle removing ornament
+  const handleRemoveOrnament = async (ornamentToRemove) => {
     const removeIndex = placedOrnaments.findIndex(o => o === ornamentToRemove);
-    
-    // Create new array without the removed ornament
     const newOrnaments = placedOrnaments.filter(o => o !== ornamentToRemove);
     
-    // Reassign positions for all ornaments after the removed one
-    const updatedOrnaments = newOrnaments.map((ornament, index) => {
-      // If this ornament came after the removed one, give it the new position
-      if (index >= removeIndex) {
-        return {
-          ...ornament,
-          position: placementSpots[index] // Use the previous spot
-        };
-      }
-      return ornament;
-    });
-  
+    const updatedOrnaments = newOrnaments.map((ornament, index) => ({
+      ...ornament,
+      position: placementSpots[index]
+    }));
+
     setPlacedOrnaments(updatedOrnaments);
+    await saveOrnamentsToDatabase(updatedOrnaments);
     setSelectedOrnament(null);
   };
-
 
   const handleEditOrnament = (ornamentToEdit) => {
     setEditMode({
@@ -216,9 +200,6 @@ function UserTree({ userEmail }) {  // Add userEmail prop
     setIsPanelOpen(true);
   };
 
-
-
-
   return (
     <div className="user-tree-container">
       <img
@@ -226,12 +207,11 @@ function UserTree({ userEmail }) {  // Add userEmail prop
         src="/realisticChristmasTree.png"
         alt="Christmas Tree"
         className="user-tree-logo"
-        onLoad={handleImageLoad} // Trigger when the image loads
+        onLoad={handleImageLoad}
       />
 
-      {/* Render placed ornaments */}
       {placedOrnaments.map((ornament, index) => (
-        <div key={index} >
+        <div key={index}>
           <img
             src={ornament.image}
             alt={ornament.type}
@@ -246,7 +226,6 @@ function UserTree({ userEmail }) {  // Add userEmail prop
             onClick={() => setSelectedOrnament(selectedOrnament === ornament ? null : ornament)}
           />
           
-          {/* Hover Preview */}
           {hoveredOrnament === ornament && (
             <div 
               className="ornament-preview"
@@ -260,7 +239,6 @@ function UserTree({ userEmail }) {  // Add userEmail prop
             </div>
           )}
 
-          {/* Selected Ornament Details */}
           {selectedOrnament === ornament && (
             <div 
               className="ornament-details"
@@ -307,7 +285,6 @@ function UserTree({ userEmail }) {  // Add userEmail prop
         </div>
       ))}
 
-      {/* Add Ornament Button */}
       <button
         className="add-ornament-button"
         onClick={() => setIsPanelOpen(true)}
@@ -315,12 +292,11 @@ function UserTree({ userEmail }) {  // Add userEmail prop
         Add A Gift You Want!
       </button>
 
-      {/* Ornament Selection Panel */}
       <OrnamentPanel
         isOpen={isPanelOpen}
         onClose={() => {
           setIsPanelOpen(false);
-          setEditMode(null);  // Reset edit mode on close
+          setEditMode(null);
         }}
         onSelect={handlePlaceOrnament}
         editMode={editMode}

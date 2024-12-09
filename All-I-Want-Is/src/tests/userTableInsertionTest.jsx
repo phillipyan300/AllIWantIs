@@ -48,9 +48,7 @@ function InsertTableTest() {
 
         try {
             const { data, error } = await supabase.from("Users").upsert({ 
-                id: 37,
                 email: userData.email,
-                user_name: 'testman1',
                 gifts: [
                     {
                       "ornament": {
